@@ -257,7 +257,7 @@ class DialogueLineNode(bpy.types.Node):
             
     def draw_buttons(self, context, layout):
         layout.prop(self, "constructor")
-        layout.label(text=f"UUID: {self.get('uuid', '')}")
+        layout.prop(self, "uuid", text="UUID")
         layout.prop(self, "ShowOnce")
         layout.prop(self, "groupid")
         layout.prop(self, "groupindex")
@@ -370,7 +370,7 @@ class DialogueJumpNode(bpy.types.Node):
                 self.jumptarget = ""
 
     def draw_buttons(self, context, layout):
-        layout.label(text=f"UUID: {self.get('uuid', '')}")
+        layout.prop(self, "uuid", text="UUID")
         layout.prop(self, "jumptarget")
         layout.prop(self, "jumptargetpoint")
 
@@ -484,7 +484,7 @@ class DialogueRollNode(bpy.types.Node):
 
     def draw_buttons(self, context, layout):
         layout.prop(self, "constructor")
-        layout.label(text=f"UUID: {self.get('uuid', '')}")
+        layout.prop(self, "uuid", text="UUID")
         layout.prop(self, "ShowOnce")
         layout.prop(self, "transitionmode")
         layout.prop(self, "speaker")
@@ -585,7 +585,7 @@ class DialogueRollResultNode(bpy.types.Node):
             self["uuid"] = str(uuid.uuid4())
 
     def draw_buttons(self, context, layout):
-        layout.label(text=f"UUID: {self.get('uuid', '')}")
+        layout.prop(self, "uuid", text="UUID")
         layout.prop(self, "Success")
 
         # SetFlags section
@@ -662,7 +662,7 @@ class DialogueAliasNode(bpy.types.Node):
 
     def draw_buttons(self, context, layout):
         layout.prop(self, "constructor")
-        layout.label(text=f"UUID: {self.get('uuid', '')}")
+        layout.prop(self, "uuid", text="UUID")
         layout.prop(self, "Greeting")
         layout.prop(self, "root")
         layout.prop(self, "endnode")
@@ -746,7 +746,7 @@ class DialogueVisualStateNode(bpy.types.Node):
 
     def draw_buttons(self, context, layout):
         layout.prop(self, "constructor")
-        layout.label(text=f"UUID: {self.get('uuid', '')}")
+        layout.prop(self, "uuid", text="UUID")
         layout.prop(self, "groupid")
         layout.prop(self, "groupindex")
 
