@@ -8,7 +8,7 @@ from .options import skill_options
 #Set up the node tree, load localization data, and parse global attributes, speakers etc."""
 def initialize_node_tree(context, root, log_entries):
     # Load localisation data if available
-    prefs = context.preferences.addons["Dialog Node Editor"].preferences
+    prefs = context.preferences.addons["BG3-DialogsBinary-Node-Editor-main"].preferences
     localisation_path = prefs.localisation_path
     localisation_data = {}
 
