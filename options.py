@@ -1,0 +1,21 @@
+skill_options = [
+    ('None', 'None', 'No skill selected'),  # Add this as fallback
+    ('Athletics', 'Athletics', 'Athletics'),
+    ('Acrobatics', 'Acrobatics', 'Acrobatics'),
+    ('Stealth', 'Stealth', 'Stealth'),
+    ('SleightOfHand', 'Sleight of Hand', 'Sleight of Hand'),
+    ('Arcana', 'Arcana', 'Arcana'),
+    ('History', 'History', 'History'),
+    ('Investigation', 'Investigation', 'Investigation'),
+    ('Nature', 'Nature', 'Nature'),
+    ('Religion', 'Religion', 'Religion'),
+    ('AnimalHandling', 'Animal Handling', 'Animal Handling'),
+    ('Insight', 'Insight', 'Insight'),
+    ('Medicine', 'Medicine', 'Medicine'),
+    ('Perception', 'Perception', 'Perception'),
+    ('Survival', 'Survival', 'Survival'),
+    ('Deception', 'Deception', 'Deception'),
+    ('Intimidation', 'Intimidation', 'Intimidation'),
+    ('Performance', 'Performance', 'Performance'),
+    ('Persuasion', 'Persuasion', 'Persuasion'),
+]
