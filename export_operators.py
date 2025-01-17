@@ -492,7 +492,7 @@ class ExportLocalisationOperator(bpy.types.Operator):
         is_modification = node_tree.is_modification
 
         # Get localisation file path from preferences
-        prefs = context.preferences.addons["Dialog Node Editor"].preferences
+        prefs = context.preferences.addons["BG3-DialogsBinary-Node-Editor-main"].preferences
         localisation_file = prefs.localisation_path
         if not localisation_file or not os.path.exists(localisation_file):
             self.report({'ERROR'}, "Localisation file path in addon preferences not found or not set.")
