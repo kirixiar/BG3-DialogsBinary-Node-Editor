@@ -275,6 +275,12 @@ class DialogueLineNode(bpy.types.Node):
             row.prop(item, "handle", text="Handle")
             row.prop(item, "version", text="Version")
 
+            # Add a button to generate a new handle
+            generate_op = row.operator("node.generate_handle", text="New Handle")
+            generate_op.index = idx
+            generate_op.node_name = self.name
+            generate_op.node_tree_name = self.id_data.name
+
             # Show text field for editing
             box.prop(item, "text", text="Text")
 
@@ -502,21 +508,34 @@ class DialogueRollNode(bpy.types.Node):
             box = layout.box()
             box.prop(item, "has_tag_rule", text="Has Tag Rule")
             box.prop(item, "lineid", text="LineID")
-            box.prop(item, "handle", text="Handle")
-            # Show single-line text field for quick editing
+
+            # Add Handle and Version in the same row
+            row = box.row(align=True)
+            row.prop(item, "handle", text="Handle")
+            row.prop(item, "version", text="Version")
+
+            # Add a button to generate a new handle
+            generate_op = row.operator("node.generate_handle", text="New Handle")
+            generate_op.index = idx
+            generate_op.node_name = self.name
+            generate_op.node_tree_name = self.id_data.name
+
+            # Show text field for editing
             box.prop(item, "text", text="Text")
 
-            # Add "Edit Text" button for full expansion in a popup
+            # Add "Edit Text" button for full text expansion in a popup
             row = box.row(align=True)
             row.operator("node.edit_long_text", text="Edit Text").index = idx
 
             box.prop(item, "stub")
+            
             remove_op = box.operator("node.remove_handle_text", text="Remove")
             remove_op.index = idx
-            remove_op.node_name = self.name  # Pass the node's name
-        # Button to add a new Handle-Text pair
+            remove_op.node_name = self.name 
+
+        # Add button for adding a new handle-text pair
         add_op = layout.operator("node.add_handle_text", text="Add Handle and Text")
-        add_op.node_name = self.name  # Pass the node's name
+        add_op.node_name = self.name
 
         # SetFlags section
         box = layout.box()
