@@ -300,6 +300,31 @@ class RemoveHandleTextOperator(bpy.types.Operator):
 
         return {'FINISHED'}
 
+class GenerateHandleOperator(bpy.types.Operator):
+    """Generate a new handle for a specific node"""
+    bl_idname = "node.generate_handle"
+    bl_label = "Generate Handle"
+
+    index: bpy.props.IntProperty()  # Index of the handle to update
+    node_name: bpy.props.StringProperty()  # Node containing the handle
+    node_tree_name: bpy.props.StringProperty()
+
+    def execute(self, context):
+        node_tree = bpy.data.node_groups.get(self.node_tree_name)
+        # Access the specific node the button will be in
+        node = node_tree.nodes.get(self.node_name)
+        # Generate and assign a new handle for the specific index
+        if self.index < len(node.handles_texts):
+            from uuid import uuid4
+            new_handle = "h" + str(uuid4()).replace("-", "g")
+            node.handles_texts[self.index].handle = new_handle
+            self.report({'INFO'}, f"Generated new handle: {new_handle} for node '{self.node_name}'.")
+        else:
+            self.report({'ERROR'}, f"Invalid index {self.index} for handles in node '{self.node_name}'.")
+            return {'CANCELLED'}
+
+        return {'FINISHED'}
+
 class AddSetFlagOperator(bpy.types.Operator):
     bl_idname = "node.add_setflag"
     bl_label = "Add Set Flag"
@@ -858,6 +883,12 @@ def link_nodes(node_tree, node_map, parent_child_map, log_entries):
                 log_entries.append(
                     f"Error backup linking group nodes: {current_node.name} -> {next_node.name}: {str(e)}")
 
+#Function: generate handle
+from uuid import uuid4
+def generate_handle():
+    reg_uuid = "h" + str(uuid4())
+    return reg_uuid.replace("-", "g")
+
 # ###### ARRANGE ADDON UTILITY FUNCTIONS #####
 def remove_direct_links_bypassing_reroutes(node_tree):
     connections_removed = 0
@@ -897,6 +928,7 @@ def register():
     bpy.utils.register_class(RemoveSpeakerLinkingEntryOperator)
     bpy.utils.register_class(AddHandleTextOperator)
     bpy.utils.register_class(RemoveHandleTextOperator)
+    bpy.utils.register_class(GenerateHandleOperator)
     bpy.utils.register_class(AddSetFlagOperator)
     bpy.utils.register_class(RemoveSetFlagOperator)
     bpy.utils.register_class(AddCheckFlagOperator)
@@ -918,6 +950,7 @@ def unregister():
     bpy.utils.unregister_class(RemoveDirectLinksOperator)
     bpy.utils.unregister_class(AddHandleTextOperator)
     bpy.utils.unregister_class(RemoveHandleTextOperator)
+    bpy.utils.unregister_class(GenerateHandleOperator)
     bpy.utils.unregister_class(AddSetFlagOperator)
     bpy.utils.unregister_class(RemoveSetFlagOperator)
     bpy.utils.unregister_class(AddCheckFlagOperator)
