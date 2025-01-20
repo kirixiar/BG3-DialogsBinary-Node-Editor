@@ -365,11 +365,17 @@ class DialogueJumpNode(bpy.types.Node):
         if not self.get("uuid"):
             self["uuid"] = str(uuid.uuid4())
 
-    #Automatically update jumptarget based on node children
+    # Automatically update jumptarget based on node children AND skip reroutes
     def update(self):
         if self.outputs and self.outputs[0].is_linked:
-            # Get the first connected node
             connected_node = self.outputs[0].links[0].to_node
+
+            while connected_node and connected_node.bl_idname == "NodeReroute":
+                if not connected_node.outputs[0].is_linked:
+                    connected_node = None
+                    break
+                connected_node = connected_node.outputs[0].links[0].to_node
+
             if connected_node and hasattr(connected_node, "uuid"):
                 self.jumptarget = connected_node.uuid
             else:
